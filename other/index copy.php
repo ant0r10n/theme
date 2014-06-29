@@ -1,10 +1,70 @@
+<?php require_once('Connections/config.php'); ?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+mysql_select_db($database_config, $config);
+$query_rsOne = "SELECT * FROM content ORDER BY rand() limit 0,1";
+$rsOne = mysql_query($query_rsOne, $config) or die(mysql_error());
+$row_rsOne = mysql_fetch_assoc($rsOne);
+$totalRows_rsOne = mysql_num_rows($rsOne);
+
+mysql_select_db($database_config, $config);
+$query_Recordset1 = "SELECT * FROM content WHERE type = 1 ORDER BY RAND() Limit 0,1;";
+$Recordset1 = mysql_query($query_Recordset1, $config) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+
+mysql_select_db($database_config, $config);
+$query_rsParagraph = "SELECT * FROM content WHERE type = 2 ORDER BY RAND() Limit 0,1";
+$rsParagraph = mysql_query($query_rsParagraph, $config) or die(mysql_error());
+$row_rsParagraph = mysql_fetch_assoc($rsParagraph);
+$totalRows_rsParagraph = mysql_num_rows($rsParagraph);
+
+$query_rsOne = "SELECT * FROM content  ORDER BY rand() limit 0,1";
+$rsOne = mysql_query($query_rsOne, $config) or die(mysql_error());
+$row_rsOne = mysql_fetch_assoc($rsOne);
+$totalRows_rsOne = mysql_num_rows($rsOne);
+$query_rsOne = "SELECT * FROM content ORDER BY rand() limit 0,1";
+$rsOne = mysql_query($query_rsOne, $config) or die(mysql_error());
+$row_rsOne = mysql_fetch_assoc($rsOne);
+$totalRows_rsOne = mysql_num_rows($rsOne);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Themes made from your Image.</title>
-<link rel="stylesheet" href="css5/bootstrap.min.css">
-<link rel="stylesheet" href="css5/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css3/bootstrap-theme.min.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <style type="text/css">
@@ -14,9 +74,7 @@
     
 
   .my-container [class^="col-"] {
-    
-   
-       padding-top: 10px;
+    padding-top: 10px;
     padding-bottom: 10px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -42,13 +100,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.html"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                    <li><a href="index.php"><i class="glyphicon glyphicon-home"></i> Home</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-info-sign"></i> About</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Contact</a></li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Themes <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="index2.html">Theme 2</a></li>
+                            <li><a href="index2.php">Theme 2</a></li>
                             <li><a href="index3.html">Theme 3</a></li>
                             <li><a href="index4.html">Theme 4</a></li>
                             <li class="divider"></li>
@@ -56,7 +114,7 @@
                         </ul>
                     </li>
                 </ul>
-               <!-- <ul class="nav navbar-nav navbar-right">
+              <!--  <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -76,7 +134,7 @@
      <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
-        <img src="img/Albino_peacock.jpg" class="img-responsive img-rounded" width="90%">
+        <img src="img/yellow_flower__with_little_spider__3___by_arlen_mctaranis-d624j5j.jpg" class="img-responsive img-rounded">
       </div>
     </div>
   </div>
@@ -84,11 +142,12 @@
     <div class="row">
       <div class="col-md-6">
         <div class="alert alert-dismissable alert-success">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
+               <a href="#" class="close" data-dismiss="alert">&times;</a>
           <strong>Well done!</strong> You found my Themes by Image page.</div>
+          
       </div>
       <div class="col-md-6">
-        <h2>This theme is styled from the colors in the image above. The basic elements are labled to give you a good idea what your site might look like with a color corordinatd theme.<br><a href="http://fiverr.com/ant0r10n" title="ant0r10n Fivver page">Get your Bootstrap 3 Image matched color theme now.</a>
+        <h2>This is the default Bootstrap theme.</h2> It looks great, but sometimes you need a little customization. Use the tabs in the nav bar up top to see  how it looks when it is based on the colors of your image. The basic elements are labled to give you a good idea what your site might look like with a color corordinatd theme.<br><a href="http://fiverr.com/ant0r10n" title="ant0r10n Fivver page">Get your Bootstrap 3 Image matched color theme now.</a>
       </div>
     </div>
   </div>
@@ -129,11 +188,11 @@
           </li>
           <li class="media">
             <a class="pull-left" href="#">
-              <img class="media-object img-rounded" src="img/Albino_peacock-swatch.jpg" height="75" width="75">
+              <img class="media-object img-rounded" src="img/yellow_flower__with_little_spider__3___by_arlen_mctaranis-d624j5j.jpg" height="75" width="75">
             </a>
             <div class="media-body">
               <h4 class="media-heading">Media heading</h4>
-              <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+              <p><?php echo $row_rsParagraph['thecontent']; ?></p>
             </div>
           </li>
         </ul>
@@ -153,10 +212,10 @@
       <div class="col-md-6">
         <div class="well">
           <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+          <p>Some thing interesting</p>
         </div>
         <blockquote>
-          <p>"Never interfere with a boy and girl fight."</p>
+          <p><?php echo $row_Recordset1['thecontent']; ?></p>
         </blockquote>
       </div>
       <div class="col-md-6">
@@ -167,9 +226,7 @@
           <div class="panel-body">
             <h1>Heading</h1>
             <p>Panel content</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
-              <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-              <br>Ut enim ad minim veniam, quis nostrud</p>
+            <p></p>
           </div>
         </div>
       </div>
@@ -214,13 +271,13 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
-         <ul class="pagination">
+        <ul class="pagination">
           
-          <li>
-            <a href="index.html">1</a>
+          <li class="active">
+            <a href="#">1</a>
           </li>
           <li>
-            <a href="index2.html">2</a>
+            <a href="index2.php">2</a>
           </li>
           <li>
             <a href="index3.html">3</a>
@@ -228,7 +285,7 @@
           <li>
             <a href="index4.html">4</a>
           </li>
-          <li class="active">
+          <li>
             <a href="index5.html">5</a>
           </li>
           
@@ -248,4 +305,11 @@
 
 
 </body>
-</html>                                		
+</html>
+<?php
+mysql_free_result($rsOne);
+
+mysql_free_result($Recordset1);
+
+mysql_free_result($rsParagraph);
+?>
